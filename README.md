@@ -1,3 +1,3 @@
-# Gestion des locatations des appartements
+# Gestion des locations d'appartement
 
 Frontend d'un projet scolaire
