@@ -49,11 +49,11 @@ export default function DashboardLayout() {
 				ml: { lg: `${drawerWidth}px` },
 				mt: '50px',
 				p: 2,
-				height: '130vh'
+				height: '130vh',
+				width: '100%'
 			}}>
 				{/* ------ main content goes here ------- */}
 				<Outlet />
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis perferendis possimus reiciendis excepturi mollitia dicta dolorum suscipit sunt quia quas obcaecati tempora, amet dolor a beatae consectetur natus, eius minima deserunt totam accusamus in. Ratione illum, quasi soluta id unde odit eligendi laborum quia quis? Laboriosam tempore et quisquam dolores!</p>
 			</Box>
 
 

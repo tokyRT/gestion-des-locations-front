@@ -8,7 +8,7 @@ import {
     ListItem,
     Divider,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
@@ -40,34 +40,28 @@ export default function LeftDrawer(props) {
                     }}
                 >
                     <ListItem button className='list-item'>
-                        <Link to='/' className='active'>
-                            <HomeRoundedIcon />
-                            Tableau de bord
-                        </Link>
-                    </ListItem>
-                    <ListItem button className='list-item'>
-                        <Link to='/'>
+                        <NavLink to='/' className={({ isActive }) => isActive ? "active" : ""}>
                             <LeaderboardRoundedIcon />
-                            Analytics
-                        </Link>
+                            Tableau de bord
+                        </NavLink>
                     </ListItem>
                     <ListItem button className='list-item'>
-                        <Link to='/'>
+                        <NavLink to='/appartements' className={({ isActive }) => isActive ? "active" : ""}>
+                            <HomeRoundedIcon />
+                            Appartements
+                        </NavLink>
+                    </ListItem>
+                    <ListItem button className='list-item'>
+                        <NavLink to='/locataires' className={({ isActive }) => isActive ? "active" : ""}>
                             <GroupRoundedIcon />
-                            Utilisateurs
-                        </Link>
+                            Locataires
+                        </NavLink>
                     </ListItem>
                     <ListItem button className='list-item'>
-                        <Link to='/'>
+                        <NavLink to='/activites' className={({ isActive }) => isActive ? "active" : ""}>
                             <AutoGraphRoundedIcon />
                             Activités
-                        </Link>
-                    </ListItem>
-                    <ListItem button className='list-item'>
-                        <Link to='/'>
-                            <AutoGraphRoundedIcon />
-                            Activités
-                        </Link>
+                        </NavLink>
                     </ListItem>
                 </List>
             </div>
@@ -82,12 +76,12 @@ export default function LeftDrawer(props) {
                         pr: 2
                     }}
                 >
-                    <ListItem button className='list-item'>
+                    {/* <ListItem button className='list-item'>
                         <Link to='/'>
                             <PowerSettingsNewRoundedIcon />
                             Se déconnecter
                         </Link>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
                 <small>
                     made with <FavoriteRoundedIcon className='heart'/> by Team Yasai

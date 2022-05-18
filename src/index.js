@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+//base url for java api
+axios.defaults.baseURL = "http://localhost:8085/api-location-2";
 
 ReactDOM.render(
   <React.StrictMode>
