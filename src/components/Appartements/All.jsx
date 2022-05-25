@@ -11,13 +11,16 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditDialog from './EditDialog';
 import SuccessSnackBar from '../common/SuccessSnackBar';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+import ErrorIcon from '@mui/icons-material/Error';
 import axios from 'axios';
 
 
 function All(props) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
- 
+
   const [activeAp, setActiveAp] = useState(null);
 
   const handleOpenEditDialog = (apId) => {
@@ -25,14 +28,14 @@ function All(props) {
     setOpenEditDialog(true);
   }
   const handleCloseEditDialog = () => {
-    setOpenEditDialog(false); 
+    setOpenEditDialog(false);
     setActiveAp(null);
     props.fetchData();
   }
 
   const handleDelete = (apId) => {
-    if(window.confirm("Voulez vous vraiment supprimer cet appartement?")){
-      axios.get("/appartement?id="+apId+"&delete=true").then(res => {
+    if (window.confirm("Voulez vous vraiment supprimer cet appartement?")) {
+      axios.get("/appartement?id=" + apId + "&delete=true").then(res => {
         console.log(res);
         setOpenSnack(true);
         props.fetchData();
@@ -40,24 +43,25 @@ function All(props) {
         console.log(err);
       });
 
-    } else{
+    } else {
       console.log("not");
     }
   }
   return (
     <>
-    {
-     activeAp != null ? <EditDialog open={openEditDialog} apId={activeAp} onClose={handleCloseEditDialog} /> : ""
-    }
-      
+      {
+        activeAp != null ? <EditDialog open={openEditDialog} apId={activeAp} onClose={handleCloseEditDialog} /> : ""
+      }
+
       <TableContainer component={Paper} sx={{ mt: '30px' }}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>n° appartement</TableCell>
+              <TableCell>N°</TableCell>
               <TableCell>designation</TableCell>
               <TableCell>Lieu</TableCell>
               <TableCell>Loyer</TableCell>
+              <TableCell>Locataire actuel</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -71,11 +75,26 @@ function All(props) {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {ap.id}
-              </TableCell>
+                      APP{ap.id}
+                    </TableCell>
                     <TableCell>{ap.designation}</TableCell>
                     <TableCell>{ap.lieu}</TableCell>
                     <TableCell>{ap.loyer} Ar</TableCell>
+                    <TableCell>
+                      {
+                        ap.locataire ?
+
+                          <Chip
+                            color="primary"
+                            label={ap.locataire.nom}
+                            avatar={<Avatar>{ap.locataire.nom[0].toUpperCase()}</Avatar>}
+                          />
+
+                          :
+
+                          <Chip color="warning" label="aucun" icon={<ErrorIcon />} />
+                      }
+                    </TableCell>
                     <TableCell>
                       <IconButton title="modifier" sx={{ color: 'blue' }} onClick={() => handleOpenEditDialog(ap.id)}>
                         <EditRoundedIcon />
