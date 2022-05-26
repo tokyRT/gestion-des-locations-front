@@ -16,11 +16,12 @@ export default function CreateDialog(props) {
   const [nom, setNom] = useState("");
   const [adresse, setAdresse] = useState("");
   const [nbrMois, setNbrMois] = useState(3);
+  const [loyer, setLoyer] = useState(0);
   const [dateEntree, setDateEntree] = useState("2022-03-20");
   const [openSnack, setOpenSnack] = useState(false);
 
-  const [appartsEnterDate, setAppartsEnterDate] = useState(null);
-  const [appartsLibre, setAppartsLibre] = useState(null);
+  const [appartsEnterDate, setAppartsEnterDate] = useState([]);
+  const [appartsLibre, setAppartsLibre] = useState([]);
   const [activeAppart, setActiveAppart] = useState(null);
 
   useEffect(() => {
@@ -56,7 +57,8 @@ export default function CreateDialog(props) {
         adresse: adresse,
         dateEntree: dateEntree,
         apId: activeAppart,
-        nbrMois: nbrMois
+        nbrMois: nbrMois,
+        loyer: loyer
       })
     }).then(res => {
       props.fetchData();
@@ -66,6 +68,18 @@ export default function CreateDialog(props) {
       console.log(err);
     });
 
+  }
+
+  const handleChoixAppart = (apId) => {
+    setActiveAppart(apId);
+    let ap;
+    axios.get("/appartement?id="+apId).then(res => {
+      ap = res.data;
+      console.log(ap);
+      setLoyer(ap.loyer);
+    }).catch(err => {
+      console.log(err);
+    });
   }
   return (
     <div>
@@ -110,9 +124,9 @@ export default function CreateDialog(props) {
             <h5>Appartements libres à la date d'entrée choisie ({appartsEnterDate ? appartsEnterDate.length : 0})</h5>
             <div className="appartements">
               {
-                appartsEnterDate ? appartsEnterDate.map(ap => {
+                appartsEnterDate.length > 0 ? appartsEnterDate.map(ap => {
                   return (
-                    <div className={`appart ${ap.id==activeAppart ? "active" : ""}`} key={ap.id} title="Choisir" onClick={() => setActiveAppart(ap.id)}>
+                    <div className={`appart ${ap.id==activeAppart ? "active" : ""}`} key={ap.id} title="Choisir" onClick={() => handleChoixAppart(ap.id)}>
                       <div className="left">
                         <img src={appartThumb} alt="" />
                       </div>
@@ -131,9 +145,12 @@ export default function CreateDialog(props) {
             <h5>Nouveaux appartements({appartsLibre ? appartsLibre.length : 0})</h5>
             <div className="appartements">
               {
-                appartsLibre ? appartsLibre.map(ap => {
+                appartsLibre.length > 0 ? appartsLibre.map(ap => {
                   return (
-                    <div className={`appart ${ap.id==activeAppart ? "active" : ""}`} key={ap.id} title="Choisir" onClick={() => setActiveAppart(ap.id)}>
+                    <div 
+                      className={`appart ${ap.id==activeAppart ? "active" : ""}`} 
+                      key={ap.id} title="Choisir" 
+                      onClick={() => handleChoixAppart(ap.id)}>
                       <div className="left">
                         <img src={appartThumb} alt="" />
                       </div>
@@ -159,6 +176,17 @@ export default function CreateDialog(props) {
               required
               value={nbrMois}
               onChange={(e) => setNbrMois(e.target.value)}
+            />
+            <TextField
+              margin='dense'
+              label={"Loyer (recommandé: "+loyer+" Ar)"}
+              InputProps={{ inputProps: { min: 0} }}
+              type="number"
+              fullWidth
+              variant="standard"
+              required
+              value={loyer}
+              onChange={(e) => setLoyer(e.target.value)}
             />
           </DialogContent>
           <DialogActions>
