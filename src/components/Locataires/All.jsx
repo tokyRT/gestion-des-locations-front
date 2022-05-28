@@ -50,7 +50,7 @@ function All(props) {
     }
       
       <TableContainer component={Paper} sx={{ mt: '30px' }}>
-        <Table aria-label="simple table">
+        <Table aria-label="Locataires">
           <TableHead>
             <TableRow>
               <TableCell>n° locataire</TableCell>

@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Appartements from './pages/Appartements';
 import Locataires from './pages/Locataires';
+import AppartDetails from './pages/AppartDetails';
 
 
 function App() {
@@ -22,8 +23,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/' element={<DashboardLayout />}>
             <Route index element={<Home />} />
-            <Route path="/appartements" element={<Appartements/>} />
-            <Route path="/locataires" element={<Locataires/>} />
+            <Route path="appartements" element={<Appartements/>} />
+            <Route path="appartements/:apId" element={<AppartDetails/>} />
+            <Route path="locataires" element={<Locataires/>} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

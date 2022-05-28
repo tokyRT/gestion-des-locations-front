@@ -15,6 +15,7 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import ErrorIcon from '@mui/icons-material/Error';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function All(props) {
@@ -75,9 +76,15 @@ function All(props) {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      APP{ap.id}
+                      <Link to={`/appartements/${ap.id}`}>
+                        APP{ap.id}
+                      </Link>
                     </TableCell>
-                    <TableCell>{ap.designation}</TableCell>
+                    <TableCell>
+                      <Link to={`/appartements/${ap.id}`}>
+                        {ap.designation}
+                      </Link>
+                    </TableCell>
                     <TableCell>{ap.lieu}</TableCell>
                     <TableCell>{ap.loyer} Ar</TableCell>
                     <TableCell>
