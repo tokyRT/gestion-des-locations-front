@@ -6,10 +6,21 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+
+function formatDate(date) {
+  return date.toISOString().split('T')[0];
+}
 
 export default function Filter(props) {
   const [filter, setFilter] = useState("ALL");
   const [year, setYear] = useState(new Date().getFullYear());
+  let today = new Date();
+  today = formatDate(today);
+  const [start, setStart] = useState(today);
+  const [end, setEnd] = useState(today);
+
 
   const handleFilterChange = () => {
     let formatedFilter = filter;
@@ -17,7 +28,9 @@ export default function Filter(props) {
       case "YEAR":
         formatedFilter = filter + "&year=" + year;
         break;
-
+      case "RANGE":
+        formatedFilter = filter + "&from=" + start + "&to=" + end;
+        break;
       default:
         formatedFilter = "ALL"
         break;
@@ -33,7 +46,7 @@ export default function Filter(props) {
   return (
     <FilterWrapper>
 
-      <Stack spacing={2} direction="row" className='inputs'> 
+      <Stack spacing={2} direction="row" className='inputs'>
 
         <FormControl>
           <InputLabel id="filter-label">Filtre</InputLabel>
@@ -67,7 +80,30 @@ export default function Filter(props) {
               }
             </Select>
           </FormControl> : ""}
-
+        {
+          filter == "RANGE" ?
+            <>
+              <FormControl>
+                <TextField
+                  label="Start date"
+                  type="date"
+                  value={start}
+                  onChange={(e) => setStart(e.target.value)}
+                  size="small"
+                />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  label="End date"
+                  type="date"
+                  value={end}
+                  onChange={(e) => setEnd(e.target.value)}
+                  size="small"
+                />
+              </FormControl>
+            </>
+            : ""
+        }
         <Button variant="contained" disableElevation onClick={handleFilterChange}>metre a jour la liste</Button>
       </Stack>
 
