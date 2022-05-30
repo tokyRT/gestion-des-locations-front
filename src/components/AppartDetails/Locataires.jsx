@@ -13,12 +13,13 @@ export default function Locataires(props) {
   const [locataires, setLocataires] = useState([]);
   const [filter, setFilter] = useState(props.filter);
   useEffect(() => {
-    axios.get("/appartement?id=" + props.apId + "&locataire=" + filter).then(res => {
+    axios.get("/appartement?id=" + props.apId + "&locataire=" + props.filter).then(res => {
       setLocataires(res.data);
     }).catch(err => {
       console.log(err);
-    })
-  }, [filter]);
+    });
+    console.log(props.filter);
+  }, [props.filter]);
   return (
     <PageWrapper>
       <TableContainer component={Paper}>

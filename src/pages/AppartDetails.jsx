@@ -9,7 +9,7 @@ import Filter from '../components/AppartDetails/Filter';
 export default function AppartDetails() {
   let params = useParams();
   const [appart, setAppart] = useState(null);
-  const [formatedFilter, setFormatedFilter] = useState("YEAR&year=2022");
+  const [formatedFilter, setFormatedFilter] = useState("ALL");
   useEffect(() => {
     axios.get("/appartement?id=" + params.apId).then(res => {
       setAppart(res.data);
