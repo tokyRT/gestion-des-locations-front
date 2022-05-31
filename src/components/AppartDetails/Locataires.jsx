@@ -12,14 +12,25 @@ import axios from 'axios';
 export default function Locataires(props) {
   const [locataires, setLocataires] = useState([]);
   const [filter, setFilter] = useState(props.filter);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     axios.get("/appartement?id=" + props.apId + "&locataire=" + props.filter).then(res => {
       setLocataires(res.data);
+      // console.log(locataires);
     }).catch(err => {
       console.log(err);
     });
     console.log(props.filter);
   }, [props.filter]);
+
+  useEffect(() => {
+    let foo = 0;
+    locataires.forEach(loc => {
+      foo += (loc.loyer * loc.nbrMois);
+    });
+    setTotal(foo);
+  }, [locataires]);
+  
   return (
     <PageWrapper>
       <TableContainer component={Paper}>
@@ -31,7 +42,7 @@ export default function Locataires(props) {
               <TableCell>Date de fin de location</TableCell>
               {/* <TableCell>Nb de mois</TableCell> */}
               <TableCell>Loyer mensuel</TableCell>
-              <TableCell>Montant</TableCell>
+              <TableCell>Montant (Ar)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,6 +63,16 @@ export default function Locataires(props) {
                 </TableRow>
               ))
             }
+            <TableRow>
+              <TableCell colSpan={4} align="right">
+                <strong>Total</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{
+                  total
+                }</strong>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
