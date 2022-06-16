@@ -3,10 +3,16 @@ import styled from 'styled-components';
 import Chart from "react-apexcharts";
 
 export default function Donnut(props) {
-  const [options, setOptions] = useState({
-      labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+  let locIds = props.ca.map(ca => {
+    return "LOC"+ca.locId;
   });
-  const [series, setSeries] = useState([44, 55, 13, 33]);
+  const [options, setOptions] = useState({
+      labels: locIds
+  });
+  let ca = props.ca.map(ca => {
+    return ca.ca;
+  })
+  const [series, setSeries] = useState(ca);
   return (
     <Wrapper>
       <div className="mixed-chart">

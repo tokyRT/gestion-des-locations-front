@@ -7,21 +7,21 @@ export default function Chiffres(props) {
 		<Wrapper>
 			<div className="chiffre appartement">
 				<h2>Appartements</h2>
-				<strong>23</strong>
+				<strong>{props.chiffres.appartements}</strong>
 				<div className="btn-section">
 					<Link to="/appartements" className='voir-tout'>Voir tout</Link>
 				</div>
 			</div>
 			<div className="chiffre locataire">
 				<h2>Locataires</h2>
-				<strong>23</strong>
+				<strong>{props.chiffres.locataires}</strong>
 				<div className="btn-section">
 					<Link to="/appartements" className='voir-tout'>Voir tout</Link>
 				</div>
 			</div>
-			<div className="chiffre random">
-				<h2>Random</h2>
-				<strong>23</strong>
+			<div className="chiffre ca">
+				<h2>Chiffre d'affaire</h2>
+				<strong>{props.chiffres.caTotal} Ar</strong>
 				<div className="btn-section">
 					<Link to="/appartements" className='voir-tout'>Voir tout</Link>
 				</div>
@@ -70,9 +70,13 @@ const Wrapper = styled.div`
 			background-color: #FFE53B;
 			background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);
 		}
-		&.random{
+		&.ca{
 			background: rgb(0,171,226);
 			background: linear-gradient(147deg, rgba(0,171,226,1) 0%, rgba(9,58,170,1) 100%);
+			strong{
+				font-size: 3em;
+				margin-bottom: 40px;
+			}
 		}
 	}
 `;
